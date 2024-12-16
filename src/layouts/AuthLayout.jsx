@@ -7,6 +7,7 @@ const AuthLayout = () => {
   return (
     <PageWrapper>
       <AuthHeader />
+      <h1 style={{ display: 'flex', justifyContent: 'center', textAlign: 'center', width: '100%', padding:'50px', fontFamily:'-moz-initial' }}>Welcome to Our Zapvi Website</h1>
       <main>
         <Outlet />
       </main>
