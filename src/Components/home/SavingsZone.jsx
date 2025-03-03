@@ -144,7 +144,7 @@ const SavingZone = () => {
                   </div>
                   <BaseLinkOutlineWhite
                     as={BaseLinkOutlineWhite}
-                    to="/"
+                    to="/product"
                     className="uppercase"
                   >
                     shop now

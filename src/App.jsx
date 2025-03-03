@@ -14,6 +14,7 @@ import CartScreen from "./screens/cart/CartScreen"
 import WishListScreen from "./screens/user/WishListScreen"
 import AddProduct from "./screens/user/AddProduct"
 import EditProductDetails from "./components/editProductDetails/Edit"
+import NotFoundScreen from "./screens/error/NotFoundScreen"
 
 function App() {
 
@@ -74,6 +75,10 @@ function App() {
           ]
         }
       ]
+    },
+    {
+      path:"*",
+      element:<NotFoundScreen/>
     }
   ])
 

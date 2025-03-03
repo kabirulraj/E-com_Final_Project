@@ -167,19 +167,7 @@ const Footer = () => {
               );
             })}
           </div>
-          <div className="ftr-app-links">
-            <p className="app-links-title text-white text-xl font-semibold text-lg">
-              Donwload the App
-            </p>
-            <div className="app-links-group flex items-center">
-              <Link to="/">
-                <img src={staticImages.google_play} />
-              </Link>
-              <Link to="/">
-                <img src={staticImages.app_store} alt="" />
-              </Link>
-            </div>
-          </div>
+          
         </div>
         <div className="footer-bottom text-center">
           <p className="text-base text-white">

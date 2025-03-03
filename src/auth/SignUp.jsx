@@ -9,7 +9,6 @@ import { staticImages } from "../utils/images";
 import { FormElement, Input } from "../styles/form"
 import { Link } from "react-router-dom";
 import { BaseButtonBlack } from "../styles/button";
-import AuthOptions from "./AuthOptions";
 import { useForm } from "react-hook-form";
 import { useUserSignUpQuery } from "../hooks/react_query/user-query";
 import { yupResolver } from "@hookform/resolvers/yup"
@@ -84,7 +83,6 @@ const SignUp = () => {
                   Sign up for free to access to in any of our products
                 </p>
               </FormTitle>
-              <AuthOptions />
               <form onSubmit={handleSubmit(onSubmit)}>
                 <FormElement>
                 <label htmlFor="" className="forme-elem-label">
