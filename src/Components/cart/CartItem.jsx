@@ -96,7 +96,9 @@ const CartItem = ({ cartItem }) => {
       </td>
       <td>
         <div className="cart-tbl-qty flex items-center">
-          <button className="qty-dec-btn" onClick={() => handleDec(cartItem._id)}>
+          <button className="qty-dec-btn" 
+          onClick={() => handleDec(cartItem._id)}
+          disabled={cartItem.qty <= 1}>
             <i className="bi bi-dash-lg"></i>
           </button>
           <span className="qty-value inline-flex items-center justify-center font-medium text-outerspace">

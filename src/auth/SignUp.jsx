@@ -144,8 +144,7 @@ const SignUp = () => {
 
                   <Input
                     type="file"
-                    placeholder=""
-                    name=""
+                    accept="image/*"
                     className="form-elem-control"
                     onChange={(e) => setImage(e.target.files[0])}
                   />

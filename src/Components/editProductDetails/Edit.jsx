@@ -11,6 +11,7 @@ import Title from "../common/Title";
 import { FormElement, Input } from "../../styles/form";
 import { BaseButtonGreen, BaseButtonWhitesmoke } from "../../styles/button";
 import { defaultTheme } from "../../styles/themes/default";
+import { image } from '../../api/endPoints/endPoints';
 
 const AddressScreenWrapper = styled.main`
   .form-elem-control {
@@ -20,6 +21,51 @@ const AddressScreenWrapper = styled.main`
     &:focus {
       border-color: ${defaultTheme.color_silver};
     }
+  }
+    .image-preview {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    border: 1px solid ${defaultTheme.color_platinum};
+  }
+  
+  .image-input-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .file-input-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+  }
+  
+  .file-input-wrapper input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+  
+  .file-input-button {
+    padding: 8px 16px;
+    background-color: ${defaultTheme.color_whitesmoke};
+    border: 1px solid ${defaultTheme.color_platinum};
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    color: ${defaultTheme.color_dim_gray};
+  }
+  
+  .file-name {
+    margin-top: 8px;
+    font-size: 12px;
+    color: ${defaultTheme.color_dim_gray};
   }
 `;
 
@@ -33,9 +79,10 @@ const breadcrumbItems = [
 const EditProductDetails = () => {
 
     const { id } = useParams();
-    console.log(id);
 
     const [productImage, setProductImage] = useState(null);
+    const [fileName, setFileName] = useState('No file chosen');
+
     const { control, handleSubmit, setValue } = useForm({
         defaultValues: {
             title: "",
@@ -43,7 +90,7 @@ const EditProductDetails = () => {
             image: "",
         },
     });
-    const { data, isLoading, isError } = useProductDetailsQuery(id);
+    const { data } = useProductDetailsQuery(id);
 
     const { mutate } = useProductUpdateQuery();
 
@@ -53,7 +100,14 @@ const EditProductDetails = () => {
             setValue("description", data?.data?.description);
             setValue("image", data?.data?.image);
         }
-    });
+    }, [data, setValue]);
+
+    const handleImageChange = (e) => {
+        if (e.target.files && e.target.files[0]) {
+            setProductImage(e.target.files[0]);
+            setFileName(e.target.files[0].name);
+        }
+    };
 
     const onSubmit = (data) => {
         const formData = new FormData();
@@ -64,9 +118,6 @@ const EditProductDetails = () => {
         mutate(formData);
     };
 
-    if (isLoading) return <p>Loading...</p>;
-    if (isError) return <p>Error loading product details</p>;
-
     return (
         <AddressScreenWrapper className="page-py-spacing">
             <Container>
@@ -74,7 +125,6 @@ const EditProductDetails = () => {
                 <UserDashboardWrapper>
                     <UserMenu />
                     <UserContent>
-                        <Title titleText={"My Account"} />
                         <h4 className="title-sm">Update Product</h4>
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <div className="form-wrapper">
@@ -114,9 +164,9 @@ const EditProductDetails = () => {
                                         render={({ field }) => (
                                             <Input
                                                 {...field}
-                                                type="text"
+                                                type="number"
                                                 className="form-elem-control"
-                                                placeholder="name"
+                                                placeholder="price"
                                             />
                                         )}
                                     />
@@ -128,12 +178,31 @@ const EditProductDetails = () => {
                                     >
                                         Product Image
                                     </label>
-                                    <Input
-                                        type="file"
-                                        className="form-elem-control"
-                                        placeholder="Select image.."
-                                        onChange={(e) => setProductImage(e.target.files[0])}
-                                    />
+                                   <div className="image-input-container">
+                                        {data?.data?.image && !productImage && (
+                                            <img 
+                                                src={image(data.data.image)} 
+                                                alt="Current product" 
+                                                className="image-preview" 
+                                            />
+                                        )}
+                                        {productImage && (
+                                            <img 
+                                                src={URL.createObjectURL(productImage)} 
+                                                alt="New product" 
+                                                className="image-preview" 
+                                            />
+                                        )}
+                                        <div className="file-input-wrapper">
+                                            <div className="file-input-button">Choose File</div>
+                                            <Input
+                                                type="file"
+                                                accept='image/*'
+                                                onChange={handleImageChange}
+                                            />
+                                        </div>
+                                        <div className="file-name">{fileName}</div>
+                                    </div>
                                 </FormElement>
 
                             </div>

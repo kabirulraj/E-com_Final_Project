@@ -81,11 +81,6 @@ const AccountScreen = () => {
     }
 });
 
-
-if (isLoading) return <p>Loading...</p>;
-if (isError) return <p>Error loading product details</p>;
-   
-
   return (
     <AccountScreenWrapper className="page-py-spacing">
       <Container>

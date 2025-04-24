@@ -32,8 +32,8 @@ const breadcrumbItems = [
 
 const schema = yup
   .object({
-    title: yup.string().required(),
-    description: yup.string().required(),
+    name: yup.string().required(),
+    price: yup.string().required(),
   })
   .required()
 
@@ -52,7 +52,6 @@ const AddProduct = () => {
   const { mutate } = useProductCreateQuery()
 
   const onSubmit = (data) =>{
-    console.log(data)
     const formData = new FormData()
     formData.append('title', data?.title)
     formData.append('description', data?.description)
@@ -83,10 +82,10 @@ const AddProduct = () => {
                     type="text"
                     className="form-elem-control"
                     placeholder="name"
-                    {...register("title")}
+                    {...register("name")}
                   />
                   <span className="form-elem-error">
-                  {errors.title?.message}
+                  {errors.name?.message}
                   </span>
                 </FormElement>
                 <FormElement>
@@ -97,13 +96,13 @@ const AddProduct = () => {
                     Price*
                   </label>
                   <Input
-                    type="text"
+                    type="number"
                     className="form-elem-control"
                     placeholder="price"
-                    {...register("description")}
+                    {...register("price")}
                   />
                   <span className="form-elem-error">
-                  {errors.description?.message}
+                  {errors.price?.message}
                   </span>
                 </FormElement>
                 <FormElement>
@@ -115,6 +114,7 @@ const AddProduct = () => {
                   </label>
                   <Input
                     type="file"
+                    accept="image/*"
                     className="form-elem-control"
                     placeholder="Select image.."
                     onChange={(e) => setProductImage(e.target.files[0])}

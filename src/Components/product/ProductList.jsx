@@ -17,9 +17,7 @@ const ProductListWrapper = styled.div`
 
 const ProductList = () => {
     
-    const {data,isLoading,isFetching} = useProductListQuery()
-
-    if(isLoading) return <h3>Loading..</h3>
+    const {data,isFetching} = useProductListQuery()
     
   return (
     <ProductListWrapper className="grid">

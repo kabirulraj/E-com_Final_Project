@@ -44,7 +44,7 @@ const SignInScreenWrapper = styled.section`
 const schema = yup
   .object({
     email: yup.string().required(),
-    password: yup.string(),
+    password: yup.string().required(),
   })
   .required()
 
@@ -98,7 +98,7 @@ const SignIn = () => {
                   </label>
 
                   <Input
-                    type="text"
+                    type="password"
                     placeholder=""
                     name=""
                     className="form-elem-control"

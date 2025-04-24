@@ -30,11 +30,6 @@ const ProductListScreen = () => {
               <h4 className="text-xxl">Men & Women&apos;s Clothing</h4>
               <ul className="products-right-nav flex items-center justify-end flex-wrap">
                 <li>
-                  <Link to="/" className="active text-lg font-semibold">
-                    New
-                  </Link>
-                </li>
-                <li>
                   <Link to="/order" className="text-lg font-semibold">
                     Add Product
                   </Link>

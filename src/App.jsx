@@ -1,19 +1,21 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
-import AuthLayout from "./layouts/AuthLayout"
-import SignIn from "./auth/SignIn"
-import SignUp from "./auth/SignUp"
-import ResetScreen from "./auth/ResetScreen"
 import { GlobalStyles } from "./styles/global/GlobalStyles";
-import MainLayout from "./layouts/MainLayout"
-import ProductListScreen from "./screens/product/ProductListScreen"
-import AuthRouter from "./middleware/AuthRouter"
 import { Toaster } from "sonner"
-import AccountScreen from "./screens/user/AccountScreen"
-import HomeScreen from "./screens/Home/HomeScreen"
-import CartScreen from "./screens/cart/CartScreen"
-import WishListScreen from "./screens/user/WishListScreen"
-import AddProduct from "./screens/user/AddProduct"
-import EditProductDetails from "./components/editProductDetails/Edit"
+import { lazy, Suspense } from "react";
+import Loader from "./Components/Loader/Loader"
+const AuthLayout = lazy(() => import("./layouts/AuthLayout"))
+const SignIn = lazy(() => import("./auth/SignIn"))
+const SignUp = lazy(() => import("./auth/SignUp"))
+const ResetScreen = lazy(() => import("./auth/ResetScreen"))
+const MainLayout = lazy(() => import("./layouts/MainLayout"))
+const ProductListScreen = lazy(() => import("./screens/product/ProductListScreen"))
+const AuthRouter = lazy(() => import("./middleware/AuthRouter"))
+const AccountScreen = lazy(() => import("./screens/user/AccountScreen"))
+const HomeScreen = lazy(() => import("./screens/home/HomeScreen"))
+const CartScreen = lazy(() => import("./screens/cart/CartScreen"))
+const WishlistScreen = lazy(() => import("./screens/user/WishListScreen"))
+const AddProduct = lazy(() => import("./screens/user/AddProduct"))
+const EditProductDetails = lazy(() => import("./components/editProductDetails/Edit"))
 import NotFoundScreen from "./screens/error/NotFoundScreen"
 
 function App() {
@@ -21,15 +23,23 @@ function App() {
   const router = createBrowserRouter([
     {
       path:"/",
-      element:<AuthLayout/>,
+      element:(<Suspense fallback={<Loader/>}>
+        <AuthLayout/>
+      </Suspense>),
       children:[
         {
           path:"/sign_in",
-          element:<SignIn/>,
+          element:
+          (<Suspense fallback={<Loader/>}>
+            <SignIn/>
+          </Suspense>)
         },
         {
           path:"/sign_up",
-          element:<SignUp/>
+          element:
+          (<Suspense fallback={<Loader/>}>
+            <SignUp/>
+          </Suspense>)
         },  
         {
           path:"/reset",
@@ -46,31 +56,52 @@ function App() {
           children:[
             {
               path:"/home",
-              element:<HomeScreen/>,
+              element:
+              (<Suspense fallback={<Loader/>}>
+                <HomeScreen/>
+              </Suspense>)
             },
             {
               path:"/product",
-              element:<ProductListScreen/>,
+              element:
+              (<Suspense fallback={<Loader/>}>
+                <ProductListScreen/>
+              </Suspense>)
             },
             {
               path:"/account",
-              element:<AccountScreen/>
+              element:
+              (<Suspense fallback={<Loader/>}>
+                <AccountScreen/>
+              </Suspense>)
             },
             {
               path:"/cart",
-              element:<CartScreen/>,
+              element:
+              (<Suspense fallback={<Loader/>}>
+               <CartScreen/>
+              </Suspense>)
             },
             {
               path:"/wishlist",
-              element:<WishListScreen/>
+              element:
+              (<Suspense fallback={<Loader/>}>
+                <WishlistScreen/>
+               </Suspense>)
             },
             {
               path:"/order",
-              element:<AddProduct/>
+              element:
+              (<Suspense fallback={<Loader/>}>
+                <AddProduct/>
+               </Suspense>)
             },
             {
               path:"/productDetails/:id",
-              element:<EditProductDetails/>
+              element:
+              (<Suspense fallback={<Loader/>}>
+                <EditProductDetails/>
+               </Suspense>)
             }
           ]
         }

@@ -158,8 +158,6 @@ const WishListScreen = () => {
   
   const {wishlistData}=useSelector((state)=>state.wishlist)
 
-  console.log(wishlistData);
-  
 
   const handleDelete =(id)=>{
     dispatch(remove(id))

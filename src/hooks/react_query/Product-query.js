@@ -60,6 +60,7 @@ export const useProductCreateQuery = () => {
       mutationFn: productUpdate,
       onSuccess: (data) => {
         if (data?.status === 200) {
+          toast.success(data.message)
           queryClient.invalidateQueries({ queryKey: [PRODUCT] });
           navigate("/product");
         }
